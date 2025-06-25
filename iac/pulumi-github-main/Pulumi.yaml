@@ -1,0 +1,5 @@
+name: prompt-engineering
+runtime: go
+description: Pulumi project for creating GitHub repository for prompt-engineering projects
+options:
+  refresh: always
