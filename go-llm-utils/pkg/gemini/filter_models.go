@@ -8,7 +8,7 @@ import (
 )
 
 // FilterModelsByAction returns model names that support the given action.
-func FilterModelsByAction(models []genai.Model, action string) []string {
+func FilterModelsByAction(models []*genai.Model, action string) []string {
 	var result []string
 	for _, m := range models {
 		if slices.Contains(m.SupportedActions, action) {
