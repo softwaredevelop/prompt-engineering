@@ -20,10 +20,16 @@ func main() {
 	lister := &gemini.GenAIModelLister{Client: client}
 	models, err := gemini.ListModels(ctx, lister)
 
-	fmt.Println("List of models that support generateContent:")
+	fmt.Println("\nList of models that support generateContent:")
 	for _, model := range models.Items {
 		if slices.Contains(model.SupportedActions, "generateContent") {
 			fmt.Println(model.Name)
 		}
+	}
+
+	fmt.Println("\nList of models that support embedContent:")
+	embedModels := gemini.FilterModelsByAction(models.Items, "embedContent")
+	for _, model := range embedModels {
+		fmt.Println(model)
 	}
 }
