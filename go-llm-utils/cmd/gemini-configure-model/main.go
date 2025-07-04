@@ -3,7 +3,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/softwaredevelop/prompt-engineering/go-llm-utils/pkg/gemini"
@@ -49,5 +48,5 @@ func main() {
 		log.Fatalf("generate error: %v", err)
 	}
 
-	fmt.Println(response.Candidates[0].Content.Parts[0].Text)
+	gemini.PrintResponse(response)
 }
