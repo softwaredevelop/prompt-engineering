@@ -3,6 +3,7 @@ package gemini
 
 import (
 	"fmt"
+	"os"
 
 	"google.golang.org/genai"
 )
@@ -18,4 +19,12 @@ func PrintResponse(resp *genai.GenerateContentResponse) {
 			}
 		}
 	}
+}
+
+func ReadTextFromFile(filename string) (string, error) {
+	data, err := os.ReadFile(filename)
+	if err != nil {
+		return "", err
+	}
+	return string(data), nil
 }
