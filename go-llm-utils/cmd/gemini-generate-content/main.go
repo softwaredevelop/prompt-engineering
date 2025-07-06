@@ -36,19 +36,19 @@ func main() {
 		log.Fatalf("Error resolving project root path: %v", err)
 	}
 
-	systemPromptPath := filepath.Join(projectRoot, "prompts", "system", "general-purpose.md")
-	systemPromptFile, err := gemini.ReadTextFromFile(systemPromptPath)
+	systemPromptFile := filepath.Join(projectRoot, "prompts", "system", "general-purpose.md")
+	systemPrompt, err := gemini.ReadTextFromFile(systemPromptFile)
 	if err != nil {
 		log.Fatalf("Error reading system instructions file: %v", err)
 	}
 
 	systemParts := []*genai.Part{
-		genai.NewPartFromText(systemPromptFile),
+		genai.NewPartFromText(systemPrompt),
 		genai.NewPartFromText("Answer questions clearly, accurately, and provide additional context when relevant."),
 	}
 
-	userPromptPath := filepath.Join(projectRoot, "prompts", "user", "hello.md")
-	userPrompt, err := gemini.ReadTextFromFile(userPromptPath)
+	userPromptFile := filepath.Join(projectRoot, "prompts", "user", "hello.md")
+	userPrompt, err := gemini.ReadTextFromFile(userPromptFile)
 	if err != nil {
 		log.Fatalf("Error reading prompt instructions file: %v", err)
 	}
