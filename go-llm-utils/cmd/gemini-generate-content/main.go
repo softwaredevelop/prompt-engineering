@@ -14,9 +14,16 @@ const (
 	candidateCount   = 1
 	maxOutputTokens  = 8192         //1024, 2048, 4096, 8192, 16384
 	responseMimeType = "text/plain" // text/plain, application/json, text/x.enum
+	seed             = 5
 	temperature      = 0.3
 	topK             = 20.0
 	topP             = 1
+)
+
+const (
+	frequencyPenalty = 0.0
+	presencePenalty  = 0.0
+	thinkingBudget   = 1024 //1024, 2048, 4096, 8192
 )
 
 const (
@@ -55,8 +62,12 @@ func main() {
 
 	config := &genai.GenerateContentConfig{
 		CandidateCount:    candidateCount,
+		FrequencyPenalty:  gemini.F32(frequencyPenalty),
 		MaxOutputTokens:   maxOutputTokens,
+		PresencePenalty:   gemini.F32(presencePenalty),
 		ResponseMIMEType:  responseMimeType,
+		Seed:              gemini.I32(seed),
+		StopSequences:     []string{"STOP!"},
 		SystemInstruction: genai.NewContentFromParts(systemParts, genai.RoleUser),
 		Temperature:       gemini.F32(temperature),
 		TopK:              gemini.F32(topK),
