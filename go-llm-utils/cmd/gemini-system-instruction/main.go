@@ -17,16 +17,16 @@ func main() {
 	}
 
 	config := &genai.GenerateContentConfig{
-		SystemInstruction: genai.NewContentFromText("You are a helpful AI assistant. Answer questions clearly and honestly.", genai.RoleUser),
+		SystemInstruction: genai.NewContentFromText("You are a helpful and knowledgeable AI assistant. Answer questions clearly, accurately, and provide additional context when relevant.", genai.RoleUser),
 	}
 
 	contents := []*genai.Content{
-		genai.NewContentFromText("Hello, what model are you?", genai.Role("user")),
+		genai.NewContentFromText("Hello, what model are you?", genai.RoleUser),
 	}
 
 	response, err := client.Models.GenerateContent(
 		ctx,
-		"gemini-2.0-flash",
+		"models/gemini-2.0-flash",
 		contents,
 		config,
 	)
