@@ -37,9 +37,14 @@ func main() {
 	}
 
 	systemPromptPath := filepath.Join(projectRoot, "prompts", "system", "general-purpose.md")
-	systemPrompt, err := gemini.ReadTextFromFile(systemPromptPath)
+	systemPromptFile, err := gemini.ReadTextFromFile(systemPromptPath)
 	if err != nil {
 		log.Fatalf("Error reading system instructions file: %v", err)
+	}
+
+	systemParts := []*genai.Part{
+		genai.NewPartFromText(systemPromptFile),
+		genai.NewPartFromText("Answer questions clearly, accurately, and provide additional context when relevant."),
 	}
 
 	userPromptPath := filepath.Join(projectRoot, "prompts", "user", "hello.md")
@@ -52,18 +57,18 @@ func main() {
 		CandidateCount:    candidateCount,
 		MaxOutputTokens:   maxOutputTokens,
 		ResponseMIMEType:  responseMimeType,
-		SystemInstruction: genai.NewContentFromText(systemPrompt, genai.RoleUser),
+		SystemInstruction: genai.NewContentFromParts(systemParts, genai.RoleUser),
 		Temperature:       gemini.F32(temperature),
 		TopK:              gemini.F32(topK),
 		TopP:              gemini.F32(topP),
 	}
 
-	parts := []*genai.Part{
+	userparts := []*genai.Part{
 		genai.NewPartFromText(userPrompt),
 	}
 
 	contents := []*genai.Content{
-		genai.NewContentFromParts(parts, genai.RoleUser),
+		genai.NewContentFromParts(userparts, genai.RoleUser),
 	}
 
 	result, err := client.Models.GenerateContent(
