@@ -4,6 +4,7 @@ package gemini
 import (
 	"fmt"
 	"os"
+	"strings"
 
 	"google.golang.org/genai"
 )
@@ -27,4 +28,35 @@ func ReadTextFromFile(filename string) (string, error) {
 		return "", err
 	}
 	return string(data), nil
+}
+
+func WriteGeminiTextToMarkdown(resp *genai.GenerateContentResponse, outputPath string) error {
+	if resp == nil || len(resp.Candidates) == 0 {
+		return fmt.Errorf("invalid or empty response from model")
+	}
+
+	candidate := resp.Candidates[0]
+	if candidate.Content == nil || len(candidate.Content.Parts) == 0 {
+		return fmt.Errorf("response candidate has no content")
+	}
+
+	var rawText string
+	for _, part := range candidate.Content.Parts {
+		if part.Text != "" {
+			rawText += part.Text
+		}
+	}
+
+	if rawText == "" {
+		return fmt.Errorf("no text found in response candidate parts")
+	}
+
+	formattedText := strings.ReplaceAll(rawText, "\\n", "\n")
+
+	err := os.WriteFile(outputPath, []byte(formattedText), 0644)
+	if err != nil {
+		return fmt.Errorf("failed to write markdown file %q: %w", outputPath, err)
+	}
+
+	return nil
 }
