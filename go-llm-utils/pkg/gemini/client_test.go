@@ -32,7 +32,7 @@ func TestNewGenAIClientWithAPIKey(t *testing.T) {
 
 		require.Error(t, err)
 		assert.Nil(t, client)
-		assert.EqualError(t, err, "API key cannot be empty")
+		assert.EqualError(t, err, "api key cannot be empty")
 	})
 }
 
@@ -68,7 +68,7 @@ func TestNewGenAIClient(t *testing.T) {
 		client, err := NewGenAIClient(ctx)
 		require.Error(t, err)
 		assert.Nil(t, client)
-		assert.EqualError(t, err, "Environment variable GEMINI_API_KEY not set")
+		assert.EqualError(t, err, "environment variable GEMINI_API_KEY not set")
 	})
 
 	t.Run("error when API key environment variable is set but empty", func(t *testing.T) {
@@ -77,6 +77,6 @@ func TestNewGenAIClient(t *testing.T) {
 		client, err := NewGenAIClient(ctx)
 		require.Error(t, err)
 		assert.Nil(t, client)
-		assert.EqualError(t, err, "API key cannot be empty")
+		assert.EqualError(t, err, "api key cannot be empty")
 	})
 }
