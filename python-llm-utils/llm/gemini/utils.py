@@ -1,3 +1,6 @@
+from google.genai.types import GenerateContentResponse
+
+
 def read_prompt_from_file(filepath: str) -> str:
     """
     Reads a prompt from a file, stripping a potential markdown header and surrounding whitespace.
@@ -32,3 +35,30 @@ def read_text_from_file(filepath: str) -> str:
     """
     with open(filepath, "r", encoding="utf-8") as f:
         return f.read()
+
+
+def write_gemini_text_to_markdown(
+    response: GenerateContentResponse, output_path: str
+) -> None:
+    """Extracts text from a Gemini response and writes it to a markdown file.
+
+    Args:
+        response: The GenerateContentResponse object from the Gemini API.
+        output_path: The path to the output markdown file.
+
+    Raises:
+        ValueError: If the response from the model is invalid (e.g., blocked),
+            empty, or contains no text. This is typically raised by the
+            `response.text` property.
+        IOError: If there is an error writing to the file.
+    """
+    try:
+        raw_text = response.text
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(raw_text)
+    except ValueError as e:
+        raise ValueError(
+            "Invalid or empty response from model, cannot extract text."
+        ) from e
+    except IOError as e:
+        raise IOError(f"Failed to write markdown file to '{output_path}'") from e
