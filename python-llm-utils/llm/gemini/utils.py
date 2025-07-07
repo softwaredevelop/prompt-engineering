@@ -1,9 +1,26 @@
+from pathlib import Path
+from typing import Union
+
 from google.genai.types import GenerateContentResponse
 
 
 def read_prompt_from_file(filepath: str) -> str:
-    """
-    Reads a prompt from a file, stripping a potential markdown header and surrounding whitespace.
+    """Reads a prompt from a file, stripping a potential markdown header.
+
+    This function reads a file, removes any leading blank lines, and if the
+    first line of content is a markdown header (starts with '#'), it removes
+    that line as well. The remaining content is returned as a single string
+    with leading/trailing whitespace stripped.
+
+    Args:
+        filepath: The path to the prompt file.
+
+    Returns:
+        The processed content of the prompt file.
+
+    Raises:
+        FileNotFoundError: If the file is not found.
+        IOError: If any other I/O error occurs.
     """
     with open(filepath, "r", encoding="utf-8") as f:
         lines = f.readlines()
@@ -19,9 +36,8 @@ def read_prompt_from_file(filepath: str) -> str:
     return "".join(lines).strip()
 
 
-def read_text_from_file(filepath: str) -> str:
-    """
-    Reads the entire content of a text file and returns it as a string.
+def read_text_from_file(filepath: Union[str, Path]) -> str:
+    """Reads the entire content of a text file and returns it as a string.
 
     Args:
         filepath: The path to the file to be read.
@@ -33,8 +49,7 @@ def read_text_from_file(filepath: str) -> str:
         FileNotFoundError: If the file is not found.
         IOError: If any other I/O error occurs.
     """
-    with open(filepath, "r", encoding="utf-8") as f:
-        return f.read()
+    return Path(filepath).read_text(encoding="utf-8")
 
 
 def write_gemini_text_to_markdown(
