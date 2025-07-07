@@ -14,11 +14,14 @@ func main() {
 	ctx := context.Background()
 	client, err := gemini.NewGenAIClient(ctx)
 	if err != nil {
-		log.Fatalf("client error: %v", err)
+		log.Fatalf("failed to create gemini client: %v", err)
 	}
 
 	lister := &gemini.GenAIModelLister{Client: client}
 	models, err := gemini.ListModels(ctx, lister)
+	if err != nil {
+		log.Fatalf("failed to list models: %v", err)
+	}
 
 	fmt.Println("\nList of models that support generateContent:")
 	for _, model := range models.Items {

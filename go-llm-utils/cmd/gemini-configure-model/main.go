@@ -22,7 +22,7 @@ func main() {
 	ctx := context.Background()
 	client, err := gemini.NewGenAIClient(ctx)
 	if err != nil {
-		log.Fatalf("client error: %v", err)
+		log.Fatalf("failed to create gemini client: %v", err)
 	}
 
 	config := &genai.GenerateContentConfig{
@@ -45,7 +45,7 @@ func main() {
 		config,
 	)
 	if err != nil {
-		log.Fatalf("generate error: %v", err)
+		log.Fatalf("failed to generate content: %v", err)
 	}
 
 	gemini.PrintResponse(response)

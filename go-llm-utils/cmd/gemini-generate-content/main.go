@@ -40,13 +40,13 @@ func main() {
 	relativePath := "../../../"
 	projectRoot, err := filepath.Abs(relativePath)
 	if err != nil {
-		log.Fatalf("Error resolving project root path: %v", err)
+		log.Fatalf("error resolving project root path: %v", err)
 	}
 
 	systemPromptFile := filepath.Join(projectRoot, "prompts", "system", "general-purpose.md")
 	systemPrompt, err := gemini.ReadTextFromFile(systemPromptFile)
 	if err != nil {
-		log.Fatalf("Error reading system instructions file: %v", err)
+		log.Fatalf("error reading system instructions file: %v", err)
 	}
 
 	systemParts := []*genai.Part{
@@ -57,7 +57,7 @@ func main() {
 	userPromptFile := filepath.Join(projectRoot, "prompts", "user", "hello.md")
 	userPrompt, err := gemini.ReadTextFromFile(userPromptFile)
 	if err != nil {
-		log.Fatalf("Error reading prompt instructions file: %v", err)
+		log.Fatalf("error reading prompt instructions file: %v", err)
 	}
 
 	config := &genai.GenerateContentConfig{
@@ -89,7 +89,7 @@ func main() {
 		config,
 	)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("failed to generate content: %v", err)
 	}
 
 	gemini.PrintResponse(result)
