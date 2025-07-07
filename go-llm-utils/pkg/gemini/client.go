@@ -13,7 +13,7 @@ import (
 func NewGenAIClient(ctx context.Context) (*genai.Client, error) {
 	apiKey, ok := os.LookupEnv("GEMINI_API_KEY")
 	if !ok {
-		return nil, fmt.Errorf("Environment variable GEMINI_API_KEY not set")
+		return nil, fmt.Errorf("environment variable GEMINI_API_KEY not set")
 	}
 	return newGenAIClientWithAPIKey(ctx, apiKey)
 }
@@ -22,7 +22,7 @@ func NewGenAIClient(ctx context.Context) (*genai.Client, error) {
 // It allows injecting the API key, which is useful for testing.
 func newGenAIClientWithAPIKey(ctx context.Context, apiKey string) (*genai.Client, error) {
 	if apiKey == "" {
-		return nil, fmt.Errorf("API key cannot be empty")
+		return nil, fmt.Errorf("api key cannot be empty")
 	}
 
 	client, err := genai.NewClient(ctx, &genai.ClientConfig{
