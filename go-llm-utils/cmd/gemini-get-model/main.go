@@ -12,7 +12,7 @@ func main() {
 	ctx := context.Background()
 	client, err := gemini.NewGenAIClient(ctx)
 	if err != nil {
-		log.Fatalf("client error: %v", err)
+		log.Fatalf("failed to create gemini client: %v", err)
 	}
 
 	getter := &gemini.GenAIModelGetter{Client: client}
