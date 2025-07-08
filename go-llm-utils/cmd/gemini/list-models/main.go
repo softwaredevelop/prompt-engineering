@@ -3,7 +3,9 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"slices"
 
 	"github.com/softwaredevelop/prompt-engineering/go-llm-utils/pkg/gemini"
 )
@@ -15,18 +17,22 @@ func main() {
 		log.Fatalf("failed to create gemini client: %v", err)
 	}
 
-	getter := &gemini.GenAIModelGetter{Client: client}
-	modelName := "models/gemini-2.0-flash"
-
-	model, err := gemini.ModelsGet(ctx, getter, modelName)
+	lister := &gemini.GenAIModelLister{Client: client}
+	models, err := gemini.ListModels(ctx, lister)
 	if err != nil {
-		log.Fatalf("failed to get model: %v", err)
+		log.Fatalf("failed to list models: %v", err)
 	}
 
-	log.Printf("Model: %s, Description: %s", model.Name, model.Description)
-	log.Printf("Model: %s, Display Name: %s", model.Name, model.DisplayName)
-	log.Printf("Model: %s, Input Token Limit: %d", model.Name, model.InputTokenLimit)
-	log.Printf("Model: %s, Output Token Limit: %d", model.Name, model.OutputTokenLimit)
-	log.Printf("Model: %s, Supported Actions: %v", model.Name, model.SupportedActions)
-	log.Printf("Model: %s, Version: %s", model.Name, model.Version)
+	fmt.Println("\nList of models that support generateContent:")
+	for _, model := range models.Items {
+		if slices.Contains(model.SupportedActions, "generateContent") {
+			fmt.Println(model.Name)
+		}
+	}
+
+	fmt.Println("\nList of models that support embedContent:")
+	embedModels := gemini.FilterModelsByAction(models.Items, "embedContent")
+	for _, model := range embedModels {
+		fmt.Println(model)
+	}
 }
