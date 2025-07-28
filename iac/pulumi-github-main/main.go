@@ -7,8 +7,8 @@ import (
 	standardRepo "github.com/softwaredevelop/pulumi-go-components/components/github"
 )
 
-// defineInfrastructure hozza létre a projekt erőforrásait.
-// A teszteléshez és a fő programhoz is használható.
+// `defineInfrastructure` creates the project's resources.
+// It can be used for both testing and the main program.
 func defineInfrastructure(ctx *pulumi.Context) (*standardRepo.StandardRepo, *github.IssueLabel, error) {
 	repository, err := standardRepo.NewStandardRepo(ctx, "prompt-engineering", &standardRepo.StandardRepoArgs{
 		RepositoryName: pulumi.String("prompt-engineering"),
