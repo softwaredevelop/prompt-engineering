@@ -9,7 +9,7 @@ import (
 	"google.golang.org/genai"
 )
 
-// MockModelGetter implementálja a ModelGetter interfészt
+// MockModelGetter implements the ModelGetter interface
 type MockModelGetter struct {
 	GetFunc func(context.Context, string, *genai.GetModelConfig) (*genai.Model, error)
 }

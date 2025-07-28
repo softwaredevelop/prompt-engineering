@@ -48,7 +48,7 @@ func TestDeployStack_Integration(t *testing.T) {
 		destroyErr := stack.Destroy(ctx)
 		assert.NoError(t, destroyErr, "Stack destruction should not fail")
 
-		// A stack-et magát is eltávolítjuk a workspace-ből.
+		// The stack itself is also removed from the workspace.
 		ws, err := auto.NewLocalWorkspace(ctx)
 		if assert.NoError(t, err, "Failed to get workspace for cleanup") {
 			err = ws.RemoveStack(ctx, pulumiStackName)
