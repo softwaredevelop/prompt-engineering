@@ -4,7 +4,11 @@
   "IgnoreDefaults": false,
   "SpacesAfterTabs": false,
   "NoColor": false,
-  "Exclude": ["\\.ipynb$"],
+  "Exclude": [
+    "\\.ipynb$",
+    "gemini-flash2\\.5-a\\.md$",
+    "gemini-flash2\\.5-b\\.md$"
+  ],
   "AllowedContentTypes": [],
   "PassedFiles": [],
   "Disable": {
