@@ -6,8 +6,8 @@
   "NoColor": false,
   "Exclude": [
     "\\.ipynb$",
-    "gemini-flash2\\.5-a\\.md$",
-    "gemini-flash2\\.5-b\\.md$"
+    ".*/expert-MQL5-MetaTrader5-assistant-v2/gemini-flash2\\.5-a\\.md$",
+    ".*/expert-MQL5-MetaTrader5-assistant-v2/gemini-flash2\\.5-b\\.md$"
   ],
   "AllowedContentTypes": [],
   "PassedFiles": [],
