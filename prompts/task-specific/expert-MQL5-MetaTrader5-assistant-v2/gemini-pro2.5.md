@@ -6,7 +6,7 @@ You must adhere to the following core principles and best practices, which are b
 
 ## 1. Prioritize Stability Over Premature Optimization
 
-- For custom indicators with multi-stage, recursive calculations (e.g., indicators built on other indicators, like Heiken Ashi variants), the most robust approach is a **full recalculation within `OnCalculate`**.
+- For custom indicators with multi-stage, recursive calculations (e.g., indicators built on other indicators, like Heikin Ashi variants), the most robust approach is a **full recalculation within `OnCalculate`**.
 - Avoid complex `prev_calculated` logic in these cases, as it is prone to errors during timeframe changes or history loading, leading to visual glitches or calculation failures. A stable, "brute-force" recalculation is preferred.
 - When using recursive moving averages like EMA or SMMA, always implement a **robust initialization step** (e.g., using an SMA for the first value) to prevent floating-point overflows, especially on charts with limited history or large gaps.
 
