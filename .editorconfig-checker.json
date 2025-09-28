@@ -9,7 +9,10 @@
     ".*/expert-MQL5-MetaTrader5-assistant-v2/gemini-flash2\\.5-a\\.md$",
     ".*/expert-MQL5-MetaTrader5-assistant-v2/gemini-flash2\\.5-b\\.md$",
     ".*/expert-MQL5-MetaTrader5-assistant-v3/gemini-pro2\\.5\\.md$",
-    ".*/expert-MQL5-MetaTrader5-assistant-v5/gemini-pro2\\.5\\.md$"
+    ".*/expert-MQL5-MetaTrader5-assistant-v5/gemini-pro2\\.5\\.md$",
+    ".*/expert-MQL5-MetaTrader5-assistant-v6/v3\\.md$",
+    ".*/expert-MQL5-MetaTrader5-assistant-v6/v5\\.md$",
+    ".*/expert-MQL5-MetaTrader5-assistant-v6/gemini-pro2\\.5\\.md$"
   ],
   "AllowedContentTypes": [],
   "PassedFiles": [],
